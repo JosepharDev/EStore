@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 # Create your models here.
 
 class Category(models.Model):
@@ -17,7 +17,6 @@ class Category(models.Model):
         verbose_name = "Category"
         verbose_name_plural = "categories"
 
-
 class CategoryImage(models.Model):
     title = models.CharField(max_length=150, null=True, blank=True)
     Category = models.ForeignKey(Category, related_name='category', on_delete=models.CASCADE)
@@ -28,3 +27,9 @@ class CategoryImage(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def get_url(self):
+        return reverse('category:category_view')
+
+    def get_absolute_url(self):
+        return reverse('category:category', args={self.slug})

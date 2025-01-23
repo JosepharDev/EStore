@@ -165,18 +165,21 @@
 <!-- Feature End-->
 
 <!-- Category Start-->
+
 <div class="category">
   <div class="container-fluid">
     <div class="row">
+      {% for item in cat_image %}
       <div class="col-md-3">
         <div class="category-item ch-400">
-          <img src="{% static 'img/category-3.jpg' %}" />
-          <a class="category-name" href="">
-            <p>Some text goes here that describes the image</p>
+          <img src="{{item.image.url}}" />
+          <a class="category-name" href="{{ item.get_absolute_url }}">
+            <p>{{item.title}}</p>
           </a>
         </div>
       </div>
-      <div class="col-md-3">
+      {% endfor %}
+      {% comment %} <div class="col-md-3">
         <div class="category-item ch-250">
           <img src="{% static 'img/category-4.jpg' %}" />
           <a class="category-name" href="">
@@ -203,15 +206,15 @@
             <p>Some text goes here that describes the image</p>
           </a>
         </div>
-      </div>
-      <div class="col-md-3">
+      </div> {% endcomment %}
+      {% comment %} <div class="col-md-3">
         <div class="category-item ch-400">
           <img src="{% static 'img/category-8.jpg' %}" />
           <a class="category-name" href="">
             <p>Some text goes here that describes the image</p>
           </a>
         </div>
-      </div>
+      </div> {% endcomment %}
     </div>
   </div>
 </div>

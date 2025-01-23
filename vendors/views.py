@@ -3,7 +3,7 @@ from django.views import View
 from django.http import HttpResponse
 from .forms import VendorForm
 from vendors.mixins import VendorMixin
-from microstock.mixins import LoginRequiredMixin
+from EStore.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormMixin
 from .models import Vendor
 # Create your views here.
