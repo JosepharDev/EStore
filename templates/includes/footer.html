@@ -3,7 +3,7 @@
 <div class="footer">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-md-6">
+            {% comment %} <div class="col-lg-3 col-md-6">
                 <div class="footer-widget">
                     <h2>Get in Touch</h2>
                     <div class="contact-info">
@@ -12,8 +12,21 @@
                         <p><i class="fa fa-phone"></i>+123-456-7890</p>
                     </div>
                 </div>
+            </div> {% endcomment %}
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-widget">
+                    <h2>Seller Info</h2>
+                    <ul>
+                        {% if request.user.vendor_set.all %}
+                        <li><a href="{% url 'vendor:dashboard' %}">Seller Dashboard</a></li>
+                        {% comment %} <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Return Policy</a></li> {% endcomment %}
+                        {% else %}
+                        <li><a href="{% url 'vendor:dashboard' %}">Become a Seller</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-
             <div class="col-lg-3 col-md-6">
                 <div class="footer-widget">
                     <h2>Follow Us</h2>

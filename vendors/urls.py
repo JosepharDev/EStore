@@ -3,5 +3,5 @@ from .views import VendorDashBoard
 app_name = "vendor"
 
 urlpatterns = [
-    path("", view=VendorDashBoard.as_view(),)
+    path("", view=VendorDashBoard.as_view(), name='dashboard')
 ]

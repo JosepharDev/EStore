@@ -4,6 +4,7 @@ from category.models import Category
 from .storage import ProtectedMedia
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
+from django.urls import reverse
 # Create your models here.
 
 def download_media(instence, filename):
@@ -23,6 +24,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse('product:detail', args={self.slug})
     
 def save_slug(instance, new_slug=None):
     slug = slugify(instance.title)
