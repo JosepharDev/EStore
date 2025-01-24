@@ -20,6 +20,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.index, name="index"),
@@ -27,6 +28,7 @@ urlpatterns = [
     path("vendor/", include("vendors.urls", namespace="vendor")),
     path("product/", include("products.urls", namespace="product")),
     path("category/", include("category.urls", namespace="category")),
+    path("cart/", include("carts.urls", namespace="cart")),
     
 ]
 
