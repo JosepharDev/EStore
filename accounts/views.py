@@ -13,6 +13,7 @@ from django.core.mail import EmailMessage
 from django.contrib.auth.tokens import default_token_generator
 from carts.models import Cart, CartItem
 from carts.views import _cart_id
+import requests
 
 #  Create your views here.
 def register(request):
@@ -66,7 +67,16 @@ def login(request):
 
             auth.login(request, user)
             messages.success(request, "You are now logged in")
-            return redirect('/')
+            url = request.META.get("HTTP_REFERER")
+            try:
+                query = requests.utils.urlparse(url).query
+                params = dict(x.split("=") for x in query.split("&"))
+                if 'next' in params:
+                    nextPage = params['next']
+                    return redirect(nextPage)
+                
+            except:
+                return redirect('category:category_view')
         else:
             messages.error(request, "Invalide login credentials")
 

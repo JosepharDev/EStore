@@ -1,17 +1,103 @@
-{% extends "base.html" %}
-
-{% block content %}
-{% if form%}
+{% extends "base.html" %} {% block content %} {% if form%}
 <div class="container">
-    <div class="container">
-        <h5>Things to do in the marketpalce </h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus, eligendi?</p>
-    </div>
-    <form action="." method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit">
-    </form>
+  <div class="container">
+    <h5>Things to do in the marketpalce</h5>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus,
+      eligendi?
+    </p>
+  </div>
+  <form action="." method="post">
+    {% csrf_token %} {{ form.as_p }}
+    <input type="submit" value="Submit" />
+  </form>
 </div>
 {% endif %}
+
+<!-- Product List Start -->
+<div class="product-view">
+  <div class="container-fluid">
+    <div class="row">
+      {% if products %}
+      <div class="col-lg-6">
+        <div class="row">
+          {% for item in products %}
+          <div class="col-md-3">
+            <div class="product-item">
+              {% comment %}
+              <div class="product-title">
+                <a href="#">Product Name</a>
+                <div class="ratting">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                </div>
+              </div>
+              {% endcomment %}
+              <div class="product-image">
+                <a href="{{ item.get_absolute_url }}">
+                  <img
+                    src="{{ item.image.url }}"
+                    alt="Product Image"
+                    style="max-width: 100%; max_height: 200px"
+                  />
+                </a>
+                <div class="product-action">
+                  <a href="#"><i class="fa fa-cart-plus"></i></a>
+                  <a href="#"><i class="fa fa-heart"></i></a>
+                  <a href="#"><i class="fa fa-search"></i></a>
+                </div>
+              </div>
+              {% comment %}
+              <div class="product-price">
+                <h3><span>$</span>{{item.price}}</h3>
+                <a class="btn" href=""
+                  ><i class="fa fa-shopping-cart"></i>Buy Now</a
+                >
+              </div>
+              {% endcomment %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <a href="{% url 'vendor:product_list' %}" class="btn" >ALL Products</a>
+      </div>
+      {% endif %} {% if transactions%}
+      <div class="col-lg-6">
+        <div class="table table-responsive">
+          <table class="table table-dark">
+            <thead>
+              <th>S/N</th>
+              <th>Product</th>
+              <th>Image</th>
+              <th>User</th>
+              <th>Total</th>
+            </thead>
+            {% for instance in transactions %}
+            <tbody>
+              <td>{{instance}}</td>
+              <td>
+                <img
+                  src="{{ instance.product.image.url }}"
+                  alt=""
+                  width="100px"
+                />
+              </td>
+              <td>{{instance.user.first_name}}</td>
+              <td>{{instance.product.price}}</td>
+              <td>{{instance.created_at | timesince }} argo</td>
+            </tbody>
+            {% endfor %}
+          </table>
+        </div>
+        <a href="{% url 'vendor:transaction' %}" class="btn" >ALL Transactions</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- Product List End -->
+
 {% endblock %}

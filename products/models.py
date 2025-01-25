@@ -5,6 +5,9 @@ from .storage import ProtectedMedia
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.urls import reverse
+
+from PIL import ImageDraw, Image, ImageFont
+
 # Create your models here.
 
 def download_media(instence, filename):
@@ -21,9 +24,30 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     featured = models.BooleanField(default=False)
     recent_product = models.BooleanField(default=False)
+    is_digital = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        super(Product, self).save(*args, **kwargs)
+        photo = Image.open(self.image.path)
+        if photo.mode in ("RGBA", "p"):
+            photo = photo.convert("RGB")
+        width, height = photo.size
+        draw = ImageDraw.Draw(photo)
+        mytext = "EStore"
+        font_size = int(width/15)
+        # font = ImageFont.truetype()
+        x, y = int(width/2), int(height/2)
+        # draw.text((x, y), mytext, font=font, fill='#FFF', stroke_width=5, stroke_fill="#222", anchor="ms")
+        draw.text((x, y), mytext, fill='#FFF', stroke_width=5, stroke_fill="#222", anchor="ms")
+        photo.save(self.image.path)
+
 
     def __str__(self):
         return self.title
+
+    def get_edit_url(self):
+        view_name = "vendor:update"
+        return reverse(view_name, kwargs={'slug':self.slug})
     
     def get_absolute_url(self):
         return reverse('product:detail', args={self.slug})

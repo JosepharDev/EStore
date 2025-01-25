@@ -1,5 +1,5 @@
-{% extends 'base.html'%} {% block title%} Search {% endblock %} {% block content
-%}
+{% extends 'base.html'%} {% block title%} Search {% endblock %} 
+{% block content%}
 
 <!-- Product List Start -->
 <div class="product-view">
@@ -11,7 +11,7 @@
           <div class="col-md-3">
             <div class="product-item">
               <div class="product-title">
-                <a href="#">Product Name</a>
+                <a href="#">{{item}}</a>
                 <div class="ratting">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
@@ -48,6 +48,6 @@
     </div>
     <!-- Product List End -->
 
-    {% endblock %}
   </div>
 </div>
+{% endblock %}

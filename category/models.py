@@ -13,6 +13,9 @@ class Category(models.Model):
     def __str__(self):
         return self.title
     
+    def get_url(self):
+        return reverse('category:category_view')
+    
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "categories"
@@ -28,8 +31,6 @@ class CategoryImage(models.Model):
     def __str__(self):
         return self.title
     
-    def get_url(self):
-        return reverse('category:category_view')
 
-    def get_absolute_url(self):
+    def get_cat_url(self):
         return reverse('category:category', args={self.slug})

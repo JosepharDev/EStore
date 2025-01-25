@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from vendors.mixins import VendorMixin
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import ListView
 from .models import Product
 from .forms import ProductFrom
 from django.db.models import Q
@@ -12,6 +13,7 @@ from EStore.mixins import MultiSlugMixin
 from carts.models import CartItem
 from carts.views import _cart_id
 from vendors.models import Vendor
+from category.models import Category, CategoryImage
 # Create your views here.
 
 class ProductCreateView(VendorMixin, CreateView):
@@ -19,7 +21,7 @@ class ProductCreateView(VendorMixin, CreateView):
     model = Product
     form_class = ProductFrom
     template_name = 'products/create_view.html'
-    success_url = '/'
+    success_url = '/vendor/product/list'
 
     def form_valid(self, form):
         seller = self.get_vendor()
@@ -38,10 +40,15 @@ def product_detail(request, slug):
     else:
         in_cart = CartItem.objects.all().filter(cart__cart_id=_cart_id(request), product=product).exists()
     related_product = Product.objects.filter(category=product.category).exclude(slug=product.slug)
+    cat = Category.objects.all()
+    cat_image = CategoryImage.objects.filter(Category_id__in=cat)[:4]
+
     context = {
         'product': product,
         'related_product': related_product,
         'in_cart': in_cart,
+        'cat': cat,
+        'cat_image': cat_image
     }
     return render(request, 'products/product_detail.html', context)
 
@@ -68,7 +75,7 @@ class ProductUpdateView(ProductUpdateMixin, VendorMixin, UpdateView):
     model = Product
     form_class = ProductFrom
     template_name = 'products/update_view.html'
-    success_url = '/'
+    success_url = '/vendor/product/list'
 
 
 
