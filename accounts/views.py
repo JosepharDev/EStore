@@ -11,6 +11,8 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.contrib.auth.tokens import default_token_generator
+from carts.models import Cart, CartItem
+from carts.views import _cart_id
 
 #  Create your views here.
 def register(request):
@@ -51,6 +53,17 @@ def login(request):
         user = authenticate(request, email=email, password=password)
 
         if user is not None:
+            try:
+                cart = Cart.objects.get(cart_id=_cart_id(request))
+                cart_item_exists = CartItem.objects.filter(cart=cart).exists()
+                if cart_item_exists:
+                    cart_item = CartItem.objects.filter(cart=cart)
+                    for i in cart_item:
+                        i.user = user
+                        i.save()
+            except Cart.DoesNotExist:
+                cart = Cart.objects.create(cart_id=_cart_id(request))
+
             auth.login(request, user)
             messages.success(request, "You are now logged in")
             return redirect('/')

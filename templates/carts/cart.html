@@ -1,8 +1,9 @@
-{% extends 'base.html'%} {% block title%} {% endblock %} {% block content %}
+{% extends 'base.html'%} {% block title%} Cart {% endblock %} {% block content %}
 {% load static %}
 <!-- Cart Start -->
 <div class="cart-page">
   <div class="container-fluid">
+    {% if cart_items %}
     <div class="row">
       <div class="col-lg-8">
         <div class="cart-page-inner">
@@ -22,7 +23,7 @@
                 <tr>
                   <td>
                     <div class="img">
-                      <a href="#"
+                      <a href="{{ item.product.get_absolute_url }}"
                         ><img src="{{ item.product.image.url }}" alt="Image"
                       /></a>
                       <p>{{ item.product }}</p>
@@ -42,7 +43,9 @@
                   </td>
                   <td>${{ item.product.price }}</td>{% endcomment %}
                   <td> 
-                    <button><i class="fa fa-trash"></i></button>
+                    <a href="{% url 'cart:remove_cart' item.product.id item.id %}">
+                        <button><i class="fa fa-trash"></i></button>
+                    </a>
                   </td>
                 </tr>
                 {% endfor %}
@@ -70,8 +73,12 @@
                   <h2>Grand Total<span>${{grand_total}}</span></h2>
                 </div>
                 <div class="cart-btn">
-                  <button>Shop More</button>
-                  <button>Checkout</button>
+                  <a href="{% url 'category:category_view' %}">
+                    <button>Shop More</button>
+                    </a>
+                    <a href="{% url 'cart:checkout' %}">
+                      <button>Checkout</button>
+                    </a>
                 </div>
               </div>
             </div>
@@ -79,6 +86,14 @@
         </div>
       </div>
     </div>
+    {% else %}
+      <div class="text-center m-4">
+        <h2 style="text-align:center">Your Shopping Cart Is Empty</h2>
+        <a href="{% url 'category:category_view' %}">
+            <button class="btn rounded-pill">Continue Shopping</button>
+        </a>
+      </div>
+    {% endif %}
   </div>
 </div>
 <!-- Cart End -->
