@@ -30,7 +30,15 @@ urlpatterns = [
     path("category/", include("category.urls", namespace="category")),
     path("cart/", include("carts.urls", namespace="cart")),
     path("orders/", include('orders.urls', namespace="order")),
-    
+    path("about_us/", views.about_us, name="about_us"),
+    path("privacy_policy/", views.privacy_policy, name="privacy_policy"),
+    path("terms_condition/", views.terms_condition, name="terms_condition"),
+    path("payment_policy/", views.payment_policy, name="payment_policy"),
+    path("shipping_policy/", views.shipping_policy, name="shipping_policy"),
+    path("return_policy/", views.return_policy, name="return_policy")
+
+
+
 ]
 
 if settings.DEBUG:

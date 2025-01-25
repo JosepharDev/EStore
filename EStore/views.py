@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from products.models import Product
 from category.models import Category, CategoryImage
 
@@ -14,3 +14,21 @@ def index(request):
         'recent_prod': recent_prod
     }
     return render(request,'index.html', context)
+
+def about_us(request):
+    return render(request, 'about_us.html')
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
+
+def terms_condition(request):
+    return render(request, "terms_condition.html")
+
+def payment_policy(request):
+    return render(request, "payment_policy.html")
+
+def shipping_policy(request):
+    return render(request, "shipping_policy.html")
+
+def return_policy(request):
+    return render(request, "return_policy.html")
