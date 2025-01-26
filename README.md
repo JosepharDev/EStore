@@ -37,7 +37,7 @@ EStore is an online marketplace that allows sellers to upload and sell digital i
 
 1. **Clone the repository:**
    ```
-   git clone https://github.com/your-username/estore.git
+   git clone https://github.com/JosepharDev/EStore.git
    cd estore
    ```
 2. **Set up a virtual environment:**
