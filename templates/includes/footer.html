@@ -22,7 +22,11 @@
                         {% comment %} <li><a href="#">Shipping Policy</a></li>
                         <li><a href="#">Return Policy</a></li> {% endcomment %}
                         {% else %}
-                        <li><a href="{% url 'vendor:dashboard' %}">Become a Seller</a></li>
+                            {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'vendor:dashboard' %}">Become a Seller</a></li>
+                            {%else%}
+                                <li><a href="{% url 'account:login' %}">Become a Seller</a></li>
+                            {%endif%}
                         {% endif %}
                     </ul>
                 </div>
