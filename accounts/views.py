@@ -43,7 +43,7 @@ def register(request):
             # msg.send()
             # # messages.success(request, "Thank you for registring with us")
             # return redirect("/account/login/?command=verification&email="+email)
-            return redirect('accounts/login.html')
+            return redirect('/account/login')
     else:
         form = registrationsform()
     context = {'form':form}
