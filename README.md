@@ -27,11 +27,7 @@ EStore is an online marketplace that allows sellers to upload and sell digital i
 * **Backend**:
   * Django, a Python-based web framework for handling business logic.
 * **Database**:
-  * PostgreSQL for reliable and efficient data storage.
-* **Payment Gateway**:
-  * PayPal API for secure transactions.
-* **Deployment**:
-  * Docker for containerized deployment of the application.
+  * Sqlite
 
 ## Installation and Setup
 
