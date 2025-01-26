@@ -31,14 +31,14 @@ class Product(models.Model):
         photo = Image.open(self.image.path)
         if photo.mode in ("RGBA", "p"):
             photo = photo.convert("RGB")
-        width, height = photo.size
+
+        width,height = photo.size
         draw = ImageDraw.Draw(photo)
         mytext = "EStore"
         font_size = int(width/15)
-        # font = ImageFont.truetype()
+        font = ImageFont.truetype("I am Hueca.ttf", font_size)
         x, y = int(width/2), int(height/2)
-        # draw.text((x, y), mytext, font=font, fill='#FFF', stroke_width=5, stroke_fill="#222", anchor="ms")
-        draw.text((x, y), mytext, fill='#FFF', stroke_width=5, stroke_fill="#222", anchor="ms")
+        draw.text((x, y), mytext, font=font, fill="#FFF", stroke_width=5, stroke_fill='#222', anchor="ms")
         photo.save(self.image.path)
 
 

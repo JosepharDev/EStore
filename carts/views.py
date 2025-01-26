@@ -66,7 +66,7 @@ def cart(request, cart_items=None, total=0):
         tax_rate = Decimal(0.05)
         tax = (total * tax_rate)
         tax = Decimal("%.2f" %(tax))
-        grand_total = tax + total + 1
+        grand_total = tax + total
     except ObjectDoesNotExist:
         pass
     context = {
@@ -94,7 +94,7 @@ def checkout(request, cart_items=None, total=0):
         tax_rate = Decimal(0.05)
         tax = (total * tax_rate)
         tax = Decimal("%.2f" %(tax))
-        grand_total = tax + total + 1
+        grand_total = tax + total
     except ObjectDoesNotExist:
         pass
     context = {

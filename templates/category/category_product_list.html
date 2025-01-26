@@ -11,7 +11,7 @@
           <div class="category-item ch-400">
             <img src="{{item.image.url}}" />
             <a class="category-name" href="{% url 'product:detail' item.slug%}">
-              <p>{{item.title}}</p>
+              {% comment %} <p>{{item.title}}</p> {% endcomment %}
             </a>
           </div>
         </div>

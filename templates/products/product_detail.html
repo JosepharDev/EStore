@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-7">
               <div class="product-content">
-                <div class="title"><h2>{{product}}</h2></div>
+                <div class="title"><h2></h2></div>
                 {% comment %} <div class="ratting">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
@@ -210,29 +210,17 @@
             {% for item in related_product%}
             <div class="col-lg-3">
               <div class="product-item">
-                <div class="product-title">
+                {% comment %} <div class="product-title">
                   <a href="#">{{item}}</a>
-                  <div class="ratting">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                  </div>
-                </div>
+                </div> {% endcomment %}
                 <div class="product-image">
                   <a href="{{item.get_absolute_url}}">
                     <img src="{{item.image.url}}" alt="Product Image" />
                   </a>
-                 <div class="product-action">
-                    <a href="#"><i class="fa fa-cart-plus"></i></a>
-                    <a href="#"><i class="fa fa-heart"></i></a>
-                    <a href="#"><i class="fa fa-search"></i></a>
-                  </div>
                 </div>
                 <div class="product-price">
                   <h3>${{item.price}}</h3>
-                  <a class="btn" href=""
+                  <a class="btn" href="{{item.get_absolute_url}}"
                     ><i class="fa fa-shopping-cart"></i>Buy Now</a
                   >
                 </div>
@@ -265,13 +253,6 @@
             <div class="product-item">
               <div class="product-title">
                 <a href="#">{{instance}}</a>
-                <div class="ratting">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div>
               </div>
               <div class="product-image">
                 <a href="{{ instance.get_cat_url }}">
